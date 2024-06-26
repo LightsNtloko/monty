@@ -57,7 +57,8 @@ void error_exit(char *message)
 }
 
 /**
- * usage_error - The function that prints a usage error message and exit the program
+ * usage_error - The function that prints a usage error message and
+ * exit the program
  * @line_number: The line number where the error occurred
  */
 void usage_error(unsigned int line_number)

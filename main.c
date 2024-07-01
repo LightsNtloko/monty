@@ -74,6 +74,7 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"pint", (void (*)(stack_t **, unsigned int, ...))pint},
 		{"pop", (void (*)(stack_t **, unsigned int, ...))pop},
 		{"swap", (void (*)(stack_t **, unsigned int, ...))swap},
+		{"add", (void (*)(stack_t **, unsigned int, ...))add},
 		{NULL, NULL}
 	};
 	int i;

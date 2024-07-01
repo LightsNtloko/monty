@@ -76,6 +76,7 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"swap", (void (*)(stack_t **, unsigned int, ...))swap},
 		{"add", (void (*)(stack_t **, unsigned int, ...))add},
 		{"sub", (void (*)(stack_t **, unsigned int, ...))sub},
+		{"div", (void (*)(stack_t **, unsigned int, ...))_div},
 		{"nop", (void (*)(stack_t **, unsigned int, ...))nop},
 		{NULL, NULL}
 	};

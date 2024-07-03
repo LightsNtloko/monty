@@ -16,6 +16,12 @@ void mod(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
 	temp = *stack;
 	(*stack)->next->n %= (*stack)->n;
 	*stack = (*stack)->next;

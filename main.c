@@ -30,31 +30,32 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
-
 	file = fopen(argv[1], "r");
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-
 	while ((read = getline(&line, &len, file)) != -1)
 	{
 		line_number++;
-		opcode = strtok(line, " \t\n");
-		arg = strtok(NULL, " \t\n");
-
-		if (opcode && opcode[0] != '#')
+		if (line[0] == '#' || line[0] == '\n')
 		{
-			execute_instruction(opcode, arg, &stack, line_number);
+			continue;
 		}
+		opcode = strtok(line, " \t\n");
+		if (!opcode)
+		{
+			continue;
+		}
+		arg = strtok(NULL, " \t\n");
+		execute_instruction(opcode, arg, &stack, line_number);
 	}
 	free(line);
 	fclose(file);
 	free_stack(stack);
 	return (EXIT_SUCCESS);
 }
-
 /**
  * execute_instruction - The function executes the given opcode
  * @opcode: The opcode to execute
@@ -80,18 +81,23 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"mul", (void (*)(stack_t **, unsigned int, ...))mul},
 		{"mod", (void (*)(stack_t **, unsigned int, ...))mod},
 		{"nop", (void (*)(stack_t **, unsigned int, ...))nop},
+		{"pchar", (void (*)(stack_t **, unsigned int, ...))pchar_op},
 		{NULL, NULL}
 	};
-	int i;
-
-	for (i = 0; instructions[i].opcode; i++)
+	for (int i = 0; instructions[i].opcode; i++)
 	{
 		if (strcmp(opcode, instructions[i].opcode) == 0)
 		{
 			if (strcmp(opcode, "push") == 0)
 			{
-				((void (*)(stack_t **, unsigned int, char *))
-				 instructions[i].f)(stack, line_number, arg);
+				if (!arg || !is_integer(arg))
+				{
+					fprintf(stderr, "L%u: usage: push integer\n",
+							line_number);
+					free_stack(*stack);
+					exit(EXIT_FAILURE);
+				}
+				instructions[i].f(stack, line_number, arg);
 			}
 			else
 			{
@@ -104,7 +110,6 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 	free_stack(*stack);
 	exit(EXIT_FAILURE);
 }
-
 /**
  * getline - The ustom getline function for reading lines in C89
  * @lineptr: The pointer to the buffer storing the line read

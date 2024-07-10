@@ -13,7 +13,8 @@ void push(stack_t **stack, unsigned int line_number, char *arg)
 
 	if (!arg || !is_integer(arg))
 	{
-		usage_error(line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 
 	n = atoi(arg);

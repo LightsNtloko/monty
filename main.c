@@ -84,7 +84,9 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"pchar", (void (*)(stack_t **, unsigned int, ...))pchar_op},
 		{NULL, NULL}
 	};
-	for (int i = 0; instructions[i].opcode; i++)
+	int i;
+
+	for (i = 0; instructions[i].opcode; i++)
 	{
 		if (strcmp(opcode, instructions[i].opcode) == 0)
 		{
@@ -141,7 +143,6 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream)
 
 	return (read_line_into_buffer(lineptr, n, stream));
 }
-
 /**
  * read_line_into_buffer - The function reads a line from stream
  * into the line buffer.

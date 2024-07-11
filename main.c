@@ -39,16 +39,13 @@ int main(int argc, char *argv[])
 	while ((read = getline(&line, &len, file)) != -1)
 	{
 		line_number++;
-		if (line[0] == '#' || line[0] == '\n')
-		{
-			continue;
-		}
 		opcode = strtok(line, " \t\n");
-		if (!opcode)
+		arg = strtok(NULL, " \t\n");
+
+		if (opcode == NULL || opcode[0] == '#')
 		{
 			continue;
 		}
-		arg = strtok(NULL, " \t\n");
 		execute_instruction(opcode, arg, &stack, line_number);
 	}
 	free(line);
@@ -92,14 +89,8 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{
 			if (strcmp(opcode, "push") == 0)
 			{
-				if (!arg || !is_integer(arg))
-				{
-					fprintf(stderr, "L%u: usage: push integer\n",
-							line_number);
-					free_stack(*stack);
-					exit(EXIT_FAILURE);
-				}
-				instructions[i].f(stack, line_number, arg);
+				((void (*)(stack_t **, unsigned int, char *))
+				 instructions[i].f)(stack, line_number, arg);
 			}
 			else
 			{

@@ -80,6 +80,7 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"nop", (void (*)(stack_t **, unsigned int, ...))nop},
 		{"pchar", (void (*)(stack_t **, unsigned int, ...))pchar_op},
 		{"pstr", (void (*)(stack_t **, unsigned int, ...))pstr_op},
+		{"rotl", (void (*)(stack_t **, unsigned int, ...))rotl},
 		{NULL, NULL}
 	};
 	int i;

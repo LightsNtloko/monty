@@ -81,6 +81,7 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"pchar", (void (*)(stack_t **, unsigned int, ...))pchar_op},
 		{"pstr", (void (*)(stack_t **, unsigned int, ...))pstr_op},
 		{"rotl", (void (*)(stack_t **, unsigned int, ...))rotl},
+		{"rotr", (void (*)(stack_t **, unsigned int, ...))rotr},
 		{NULL, NULL}
 	};
 	int i;

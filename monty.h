@@ -40,6 +40,18 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number, ...);
 } instruction_t;
 
+/**
+ * struct var_s - The global structure to hold mode flag
+ * @mode: 0 for stack, 1 for queue
+ *
+ * Description: This structure holds global variables for the interpreter
+ */
+typedef struct var_s
+{
+	int mode;
+} var_t;
+extern var_t var;
+
 void push(stack_t **stack, unsigned int line_number, char *arg);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -53,6 +65,7 @@ void mod(stack_t **stack, unsigned int line_number);
 void pchar_op(stack_t **stack, unsigned int line_number);
 void pstr_op(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		unsigned int line_number);

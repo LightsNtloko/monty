@@ -79,6 +79,7 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"mod", (void (*)(stack_t **, unsigned int, ...))mod},
 		{"nop", (void (*)(stack_t **, unsigned int, ...))nop},
 		{"pchar", (void (*)(stack_t **, unsigned int, ...))pchar_op},
+		{"pstr", (void (*)(stack_t **, unsigned int, ...))pstr_op},
 		{NULL, NULL}
 	};
 	int i;

@@ -40,6 +40,17 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number, ...);
 } instruction_t;
 
+/**
+ * struct global_s - The global variables
+ * @mode: The mode flag (0 for stack, 1 for queue)
+ */
+typedef struct global_s
+{
+	int mode;
+} global_t;
+
+extern global_t global_vars;
+
 void push(stack_t **stack, unsigned int line_number, char *arg);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -55,6 +66,8 @@ void pstr_op(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+void stack_op(stack_t **stack, unsigned int line_number);
+void queue_op(stack_t **stack, unsigned int line_number);
 void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		unsigned int line_number);
 void free_stack(stack_t *stack);

@@ -7,6 +7,8 @@ static ssize_t read_line_into_buffer(char **lineptr, size_t *n, FILE *stream);
 
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
+global_t global_vars = {0};
+
 /**
  * main - The enty point for the Monty interpreter
  * @argc: The variable argument count
@@ -82,6 +84,8 @@ void execute_instruction(char *opcode, char *arg, stack_t **stack,
 		{"pstr", (void (*)(stack_t **, unsigned int, ...))pstr_op},
 		{"rotl", (void (*)(stack_t **, unsigned int, ...))rotl},
 		{"rotr", (void (*)(stack_t **, unsigned int, ...))rotr},
+		{"stack", (void (*)(stack_t **, unsigned int, ...))stack_op},
+		{"queue", (void (*)(stack_t **, unsigned int, ...))queue_op},
 		{NULL, NULL}
 	};
 	int i;
